@@ -1,6 +1,7 @@
 package com.example.instagram;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -47,7 +50,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         return posts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         // we will place the proper text and images into these views in the bind function
         TextView tvUsername;
@@ -60,6 +63,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivPostPicture = itemView.findViewById(R.id.ivPostPicture);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
@@ -68,10 +73,34 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             // image is saved in our database
             ParseFile image = post.getImage();
-            System.out.println("image: " + image);
             if (image != null) { // image is optional, so its possible that it is null
                 Glide.with(context).load(image.getUrl()).into(ivPostPicture);
             }
         }
+
+        @Override
+        public void onClick(View v) {
+            System.out.println("hello world");
+            // get item position
+            int position = getAdapterPosition();
+            // makes sure the position is valid, i.e. actually exists in the view
+            if (position != RecyclerView.NO_POSITION) {
+                // get the tweet at the position
+                Post post = posts.get(position);
+                // create intent for the new activity
+                Intent intent = new Intent(context, DetailActivity.class);
+                // serialize the tweet using parceler
+                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                // show the activity
+                context.startActivity(intent);
+            }
+        }
     }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
+
 }
