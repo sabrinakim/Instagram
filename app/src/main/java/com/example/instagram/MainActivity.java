@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,7 +39,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "MainActivity";
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     private EditText etDescription;
     private Button btnPicture;
     private ImageView ivImage;
@@ -70,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // on some click or some loading we need to wait for...
+                ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoading);
+                pb.setVisibility(ProgressBar.VISIBLE);
+
                 String description = etDescription.getText().toString();
 
                 if (description.isEmpty()) {
@@ -82,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description, currentUser, photoFile);
+                // run a background job and once complete
+                pb.setVisibility(ProgressBar.INVISIBLE);
             }
         });
 
