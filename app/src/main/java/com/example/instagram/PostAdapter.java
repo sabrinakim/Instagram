@@ -58,6 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView tvDescription;
         ImageView ivPostPicture;
         ImageView ivProfilePic;
+        TextView tvCreatedAt;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -67,6 +68,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivPostPicture = itemView.findViewById(R.id.ivPostPicture);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
+            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
+
+            tvUsername.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), ProfileFeedActivity.class);
+                    v.getContext().startActivity(i);
+                }
+            });
 
             itemView.setOnClickListener(this);
         }
@@ -74,6 +84,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public void bind(Post post) {
             tvUsername.setText(post.getUser().getUsername());
             tvDescription.setText(post.getDescription());
+            tvCreatedAt.setText(post.getCreatedAt().toString());
 
             // image is saved in our database
             ParseFile image = post.getImage();
@@ -91,7 +102,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            System.out.println("hello world");
+            //System.out.println("hello world");
             // get item position
             int position = getAdapterPosition();
             // makes sure the position is valid, i.e. actually exists in the view
