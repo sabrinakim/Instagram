@@ -26,6 +26,7 @@ import java.util.List;
 public class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
+    public static final int LIMIT = 2;
     private RecyclerView rvPosts;
     protected PostAdapter adapter;
     protected List<Post> allPosts;
@@ -123,11 +124,11 @@ public class PostsFragment extends Fragment {
         });
     }
 
-    // take the lastest 20 posts from our database
+    // take the lastest LIMIT # of posts from our database
     protected void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(2);
+        query.setLimit(LIMIT);
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
             @Override
