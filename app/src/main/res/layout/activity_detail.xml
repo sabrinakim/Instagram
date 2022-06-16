@@ -14,6 +14,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,12 +24,14 @@
             android:id="@+id/tvUsernameD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
         <ImageView
             android:id="@+id/ivImageD"
             android:layout_width="match_parent"
             android:layout_height="300dp"
+            android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView

@@ -27,8 +27,8 @@ public class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
     private RecyclerView rvPosts;
-    private PostAdapter adapter;
-    private List<Post> allPosts;
+    protected PostAdapter adapter;
+    protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
     // Store a member variable for the listener
     private EndlessRecyclerViewScrollListener scrollListener;
@@ -124,11 +124,11 @@ public class PostsFragment extends Fragment {
     }
 
     // take the lastest 20 posts from our database
-    private void queryPosts() {
+    protected void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(2);
-        query.addDescendingOrder("createdAt");
+        query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
             @Override
             public void done(List<Post> posts, ParseException e) {

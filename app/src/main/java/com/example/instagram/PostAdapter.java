@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
@@ -56,6 +57,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         TextView tvUsername;
         TextView tvDescription;
         ImageView ivPostPicture;
+        ImageView ivProfilePic;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivPostPicture = itemView.findViewById(R.id.ivPostPicture);
+            ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
 
             itemView.setOnClickListener(this);
         }
@@ -76,6 +80,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             if (image != null) { // image is optional, so its possible that it is null
                 Glide.with(context).load(image.getUrl()).into(ivPostPicture);
             }
+            ParseFile profilePic = post.getUser().getParseFile("profilePic");
+            if (profilePic != null) { // image is optional, so its possible that it is null
+                Glide.with(context).load(profilePic.getUrl())
+                        .centerCrop()
+                        .into(ivProfilePic);
+            }
+
         }
 
         @Override
