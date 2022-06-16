@@ -17,7 +17,6 @@ public class ProfileFragment extends PostsFragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
-        System.out.println("?" + ParseUser.getCurrentUser());
         query.setLimit(LIMIT);
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {
@@ -36,6 +35,34 @@ public class ProfileFragment extends PostsFragment {
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts);
                 adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    protected void loadNextPosts(int i) {
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        query.include(Post.KEY_USER);
+        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.setLimit(2);
+        query.setSkip(i * 2);
+        query.addDescendingOrder("createdAt");
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+
+                // for debugging purposes let's print every post description to logcat
+                for (Post post : posts) {
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+
+                // save received posts to list and notify adapter of new data
+                allPosts.addAll(posts); // appends to the end
+                adapter.notifyItemRangeInserted(i * 2, (i + 1) * 2);
             }
         });
     }

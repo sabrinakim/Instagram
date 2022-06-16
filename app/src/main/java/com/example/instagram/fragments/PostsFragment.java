@@ -92,13 +92,12 @@ public class PostsFragment extends Fragment {
         rvPosts.addOnScrollListener(scrollListener);
     }
 
-    private void loadNextPosts(int i) {
+    protected void loadNextPosts(int i) {
         // Send an API request to retrieve appropriate paginated data
         //  --> Send the request including an offset value (i.e `page`) as a query parameter.
         //  --> Deserialize and construct new model objects from the API response
         //  --> Append the new data objects to the existing set of items inside the array of items
         //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
-        System.out.println("i: " + i);
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.setLimit(2);

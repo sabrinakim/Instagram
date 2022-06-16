@@ -78,6 +78,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
+            // repeated code :C fix later
+            ivProfilePic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), ProfileFeedActivity.class);
+                    v.getContext().startActivity(i);
+                }
+            });
+
             itemView.setOnClickListener(this);
         }
 
