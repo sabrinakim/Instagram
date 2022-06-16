@@ -70,23 +70,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
 
-            tvUsername.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(), ProfileFeedActivity.class);
-                    v.getContext().startActivity(i);
-                }
-            });
-
-            // repeated code :C fix later
-            ivProfilePic.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(v.getContext(), ProfileFeedActivity.class);
-                    v.getContext().startActivity(i);
-                }
-            });
-
             itemView.setOnClickListener(this);
         }
 
@@ -106,6 +89,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         .centerCrop()
                         .into(ivProfilePic);
             }
+
+            tvUsername.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), ProfileFeedActivity.class);
+                    i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                    v.getContext().startActivity(i);
+                }
+            });
 
         }
 

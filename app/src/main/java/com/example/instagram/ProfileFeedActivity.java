@@ -13,6 +13,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,9 +50,12 @@ public class ProfileFeedActivity extends AppCompatActivity {
     }
 
     private void queryProfilePosts() {
+        Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        //query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
+        query.whereEqualTo(Post.KEY_USER, post.getUser());
         System.out.println("?" + ParseUser.getCurrentUser());
         query.setLimit(20); // change this line later !!!!!!!!!!
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
