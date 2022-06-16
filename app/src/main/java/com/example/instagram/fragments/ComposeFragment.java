@@ -170,6 +170,7 @@ public class ComposeFragment extends Fragment {
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
         post.setUser(currentUser);
+        post.setLikes(0);
         post.saveInBackground(new SaveCallback() { // saves in our database?
             @Override
             public void done(ParseException e) {

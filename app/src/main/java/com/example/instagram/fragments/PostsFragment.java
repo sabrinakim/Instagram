@@ -27,12 +27,12 @@ public class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
     public static final int LIMIT = 2;
-    private RecyclerView rvPosts;
+    protected RecyclerView rvPosts;
     protected PostAdapter adapter;
     protected List<Post> allPosts;
-    private SwipeRefreshLayout swipeContainer;
+    protected SwipeRefreshLayout swipeContainer;
     // Store a member variable for the listener
-    private EndlessRecyclerViewScrollListener scrollListener;
+    protected EndlessRecyclerViewScrollListener scrollListener;
 
     public PostsFragment() {
         // required empty constructor
@@ -50,7 +50,6 @@ public class PostsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvPosts = view.findViewById(R.id.rvPosts);
-        adapter = new PostAdapter(getContext(), allPosts);
 
         allPosts = new ArrayList<>();
         adapter = new PostAdapter(getContext(), allPosts);

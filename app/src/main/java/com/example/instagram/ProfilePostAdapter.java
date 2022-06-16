@@ -60,4 +60,10 @@ public class ProfilePostAdapter extends RecyclerView.Adapter<ProfilePostAdapter.
             }
         }
     }
+
+    // Clean all elements of the recycler
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
 }

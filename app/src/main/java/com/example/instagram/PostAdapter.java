@@ -2,18 +2,24 @@ package com.example.instagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -21,6 +27,7 @@ import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
+    public static String TAG = "PostAdapter";
     Context context;
     List<Post> posts;
 
@@ -59,6 +66,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView ivPostPicture;
         ImageView ivProfilePic;
         TextView tvCreatedAt;
+        ToggleButton tbLike;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -69,6 +77,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivPostPicture = itemView.findViewById(R.id.ivPostPicture);
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
+            tbLike = itemView.findViewById(R.id.tbLike);
 
             itemView.setOnClickListener(this);
         }
@@ -98,6 +107,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     v.getContext().startActivity(i);
                 }
             });
+
+            tbLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        // update database
+                        post.setLikes(post.getLikes().intValue() + 1);
+                        post.saveInBackground(new SaveCallback() { // saves in our database?
+                            @Override
+                            public void done(ParseException e) {
+                                if (e != null) {
+                                    Log.e(TAG, "error while saving", e);
+                                } else {
+                                    Log.i(TAG, "like update success", e);
+                                }
+                            }
+                        });
+                    } else {
+                        post.setLikes(post.getLikes().intValue() - 1);
+                    }
+                }
+            });
+
 
         }
 
