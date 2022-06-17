@@ -119,6 +119,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
+            ivProfilePic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(v.getContext(), ProfileFeedActivity.class);
+                    i.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                    v.getContext().startActivity(i);
+                }
+            });
+
 
 
             tbLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

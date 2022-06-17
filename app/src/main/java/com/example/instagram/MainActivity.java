@@ -114,9 +114,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goLoginActivity() {
-        ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
         // return back to login activity
         Intent i = new Intent(this, LoginActivity.class);
+        i.putExtra("logged in", 0);
         startActivity(i);
         finish(); // doesn't let you go back to the main activity
     }
