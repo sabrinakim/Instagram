@@ -35,12 +35,6 @@ public class ProfileFeedActivity extends AppCompatActivity {
         allPosts = new ArrayList<>();
         adapter = new ProfilePostAdapter(this, allPosts);
 
-//        // First param is number of columns and second param is orientation i.e Vertical or Horizontal
-//        StaggeredGridLayoutManager gridLayoutManager =
-//                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-//        // Attach the layout manager to the recycler view
-//        recyclerView.setLayoutManager(gridLayoutManager);
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
 
         rvProfilePosts.setAdapter(adapter);

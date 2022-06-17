@@ -24,52 +24,51 @@ import java.util.List;
 
 public class ProfileFragment extends PostsFragment {
 
-    private List<Post> allPosts;
+    private ProfilePostAdapter adapter;
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        rvPosts = view.findViewById(R.id.rvPosts);
+
+        allPosts = new ArrayList<>();
+        adapter = new ProfilePostAdapter(getContext(), allPosts);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
 
 
-//    @Override
-//    public void onViewCreated(View view, Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        rvPosts = view.findViewById(R.id.rvPosts);
-//
-//        allPosts = new ArrayList<>();
-//        ProfilePostAdapter adapter = new ProfilePostAdapter(getContext(), allPosts);
-//        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-//
-//
-//        // steps to use the recycler view:
-//        // 0. create layout for one row in the list
-//        // 1. create the adapter
-//        // 2. create the data source
-//        // 3. set the adapter on the recycler view
-//        rvPosts.setAdapter(adapter);
-//        // 4. set the layout manager on the recycler view
-//        rvPosts.setLayoutManager(gridLayoutManager);
-//        queryPosts();
-//
-//        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-//
-//        // Setup refresh listener which triggers new data loading
-//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                adapter.clear();
-//                queryPosts();
-//                swipeContainer.setRefreshing(false);
-//            }
-//        });
-//
-//        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
-//            @Override
-//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-//                // Triggered only when new data needs to be appended to the list
-//                // Add whatever code is needed to append new items to the bottom of the list
-//                loadNextPosts(page);
-//            }
-//        };
-//        // Adds the scroll listener to RecyclerView
-//        rvPosts.addOnScrollListener(scrollListener);
-//    }
+        // steps to use the recycler view:
+        // 0. create layout for one row in the list
+        // 1. create the adapter
+        // 2. create the data source
+        // 3. set the adapter on the recycler view
+        rvPosts.setAdapter(adapter);
+        // 4. set the layout manager on the recycler view
+        rvPosts.setLayoutManager(gridLayoutManager);
+        queryPosts();
+
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                adapter.clear();
+                queryPosts();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+
+        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                loadNextPosts(page);
+            }
+        };
+        // Adds the scroll listener to RecyclerView
+        rvPosts.addOnScrollListener(scrollListener);
+    }
 
     @Override
     protected void queryPosts() {
@@ -103,8 +102,8 @@ public class ProfileFragment extends PostsFragment {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
-        query.setLimit(2);
-        query.setSkip(i * 2);
+        query.setLimit(LIMIT);
+        query.setSkip(i * LIMIT);
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -121,7 +120,7 @@ public class ProfileFragment extends PostsFragment {
 
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts); // appends to the end
-                adapter.notifyItemRangeInserted(i * 2, (i + 1) * 2);
+                adapter.notifyItemRangeInserted(i * LIMIT, (i + 1) * LIMIT);
             }
         });
     }

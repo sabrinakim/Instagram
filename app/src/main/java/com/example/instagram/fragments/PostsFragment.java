@@ -50,7 +50,8 @@ public class PostsFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         rvPosts = view.findViewById(R.id.rvPosts);
-
+        //recyclerView.setItemAnimator(null);
+        rvPosts.setItemAnimator(null);
         allPosts = new ArrayList<>();
         adapter = new PostAdapter(getContext(), allPosts);
 
@@ -84,6 +85,7 @@ public class PostsFragment extends Fragment {
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 // Triggered only when new data needs to be appended to the list
                 // Add whatever code is needed to append new items to the bottom of the list
+                //Log.i(TAG, "IN ON LOAD MORE");
                 loadNextPosts(page);
             }
         };
@@ -99,8 +101,8 @@ public class PostsFragment extends Fragment {
         //  --> Notify the adapter of the new items made with `notifyItemRangeInserted()`
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
-        query.setLimit(2);
-        query.setSkip(i * 2);
+        query.setLimit(LIMIT);
+        query.setSkip(i * LIMIT);
         query.addDescendingOrder("createdAt");
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -117,12 +119,12 @@ public class PostsFragment extends Fragment {
 
                 // save received posts to list and notify adapter of new data
                 allPosts.addAll(posts); // appends to the end
-                adapter.notifyItemRangeInserted(i * 2, (i + 1) * 2);
+                adapter.notifyItemRangeInserted(i * LIMIT, (i + 1) * LIMIT);
             }
         });
     }
 
-    // take the lastest LIMIT # of posts from our database
+    // take the latest LIMIT # of posts from our database
     protected void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);

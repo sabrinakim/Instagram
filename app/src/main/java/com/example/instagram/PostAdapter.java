@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
@@ -114,6 +115,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     if (isChecked) {
                         // update database
                         post.setLikes(post.getLikes().intValue() + 1);
+                        ParseUser u = ParseUser.getCurrentUser();
                         post.saveInBackground(new SaveCallback() { // saves in our database?
                             @Override
                             public void done(ParseException e) {
@@ -126,6 +128,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         });
                     } else {
                         post.setLikes(post.getLikes().intValue() - 1);
+                        post.saveInBackground(new SaveCallback() { // saves in our database?
+                            @Override
+                            public void done(ParseException e) {
+                                if (e != null) {
+                                    Log.e(TAG, "error while saving", e);
+                                } else {
+                                    Log.i(TAG, "like update success", e);
+                                }
+                            }
+                        });
                     }
                 }
             });
