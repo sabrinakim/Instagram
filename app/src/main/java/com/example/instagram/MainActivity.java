@@ -52,8 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (ParseUser.getCurrentUser() == null) {
+            goLoginActivity();
+        }
 
         Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.gray)));
         getSupportActionBar().setDisplayShowHomeEnabled(true);
