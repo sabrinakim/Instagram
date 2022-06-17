@@ -27,7 +27,7 @@ public class PostsFragment extends Fragment {
 
     public static final String TAG = "PostsFragment";
     public static final int LIMIT = 20;
-    protected RecyclerView rvPosts;
+    private RecyclerView rvPosts;
     protected PostAdapter adapter;
     protected List<Post> allPosts;
     protected SwipeRefreshLayout swipeContainer;

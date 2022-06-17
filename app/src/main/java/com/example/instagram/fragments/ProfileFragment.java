@@ -2,8 +2,12 @@ package com.example.instagram.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,11 +29,19 @@ import java.util.List;
 public class ProfileFragment extends PostsFragment {
 
     private ProfilePostAdapter adapter;
+    private RecyclerView rvProfilePostsFrag;
+
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.fragment_new_profile, container, false);
+//    }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvPosts = view.findViewById(R.id.rvPosts);
+        //rvProfilePostsFrag = view.findViewById(R.id.rvProfilePostsFrag);
+        rvProfilePostsFrag = view.findViewById(R.id.rvPosts);
 
         allPosts = new ArrayList<>();
         adapter = new ProfilePostAdapter(getContext(), allPosts);
@@ -41,33 +53,33 @@ public class ProfileFragment extends PostsFragment {
         // 1. create the adapter
         // 2. create the data source
         // 3. set the adapter on the recycler view
-        rvPosts.setAdapter(adapter);
+        rvProfilePostsFrag.setAdapter(adapter);
         // 4. set the layout manager on the recycler view
-        rvPosts.setLayoutManager(gridLayoutManager);
+        rvProfilePostsFrag.setLayoutManager(gridLayoutManager);
         queryPosts();
 
-        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
-
-        // Setup refresh listener which triggers new data loading
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                adapter.clear();
-                queryPosts();
-                swipeContainer.setRefreshing(false);
-            }
-        });
-
-        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
-                loadNextPosts(page);
-            }
-        };
-        // Adds the scroll listener to RecyclerView
-        rvPosts.addOnScrollListener(scrollListener);
+//        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
+//
+//        // Setup refresh listener which triggers new data loading
+//        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                adapter.clear();
+//                queryPosts();
+//                swipeContainer.setRefreshing(false);
+//            }
+//        });
+//
+//        scrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
+//            @Override
+//            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+//                // Triggered only when new data needs to be appended to the list
+//                // Add whatever code is needed to append new items to the bottom of the list
+//                loadNextPosts(page);
+//            }
+//        };
+//        // Adds the scroll listener to RecyclerView
+//        rvPosts.addOnScrollListener(scrollListener);
     }
 
     @Override

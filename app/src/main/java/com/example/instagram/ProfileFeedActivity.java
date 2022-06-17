@@ -7,9 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -23,6 +26,7 @@ public class ProfileFeedActivity extends AppCompatActivity {
     public static String TAG = "ProfileFeedActivity";
     private ProfilePostAdapter adapter;
     private RecyclerView rvProfilePosts;
+    private ImageView ivProfileFeedPic;
     private List<Post> allPosts;
 
     @Override
@@ -41,6 +45,12 @@ public class ProfileFeedActivity extends AppCompatActivity {
         rvProfilePosts.setLayoutManager(gridLayoutManager);
 
         queryProfilePosts();
+
+        ivProfileFeedPic = findViewById(R.id.ivProfileFeedPic);
+        ParseFile image = ParseUser.getCurrentUser().getParseFile("profilePic");
+        if (image != null) { // image is optional, so its possible that it is null
+            Glide.with(this).load(image.getUrl()).into(ivProfileFeedPic);
+        }
     }
 
     private void queryProfilePosts() {
@@ -50,7 +60,6 @@ public class ProfileFeedActivity extends AppCompatActivity {
         query.include(Post.KEY_USER);
         //query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         query.whereEqualTo(Post.KEY_USER, post.getUser());
-        System.out.println("?" + ParseUser.getCurrentUser());
         query.setLimit(20); // change this line later !!!!!!!!!!
         query.addDescendingOrder(Post.KEY_CREATED_KEY);
         query.findInBackground(new FindCallback<Post>() {

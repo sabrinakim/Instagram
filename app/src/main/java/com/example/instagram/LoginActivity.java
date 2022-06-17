@@ -42,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
 
-        //etUsername.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
