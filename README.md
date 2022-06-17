@@ -14,7 +14,7 @@ The following **required** functionality is completed:
 - [x] The current signed in user is persisted across app restarts
 - [x] User can log out of their account
 - [x] User can take a photo, add a caption, and post it to "Instagram"
-- [ ] User can view the last 20 posts submitted to "Instagram"
+- [x] User can view the last 20 posts submitted to "Instagram"
 - [x] User can pull to refresh the last 20 posts submitted to "Instagram"
 - [x] User can tap a post to go to a Post Details activity, which includes timestamp and caption.
 
@@ -26,7 +26,7 @@ The following **stretch** features are implemented:
 - [x] User should switch between different tabs using fragments and a Bottom Navigation View.
   - [x] Feed Tab (to view all posts from all users)
   - [x] Capture Tab (to make a new post using the Camera and Photo Gallery)
-  - [ ] Profile Tab (to view only the current user's posts, in a grid)
+  - [x] Profile Tab (to view only the current user's posts, in a grid)
 - [x] Show the username and creation time for each post
 - User Profiles:
   - [ ] Allow the logged in user to add a profile photo
@@ -35,7 +35,7 @@ The following **stretch** features are implemented:
   - [x] User Profile shows posts in a grid
 - [x] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 - [ ] User can comment on a post and see all comments for each post in the post details screen.
-- [ ] User can like a post and see number of likes for each post in the post details screen.
+- [x] User can like a post and see number of likes for each post in the post details screen.
 
 The following **additional** features are implemented:
 
