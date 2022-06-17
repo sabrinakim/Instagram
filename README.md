@@ -40,11 +40,13 @@ The following **stretch** features are implemented:
 The following **additional** features are implemented:
 
 - [ ] List anything else that you can get done to improve the app functionality!
+- [x] Included user's picture in profile feed screen to make it look more like the real Instagram profile page
+- [x] When user clicks on their profile picture, the camera opens up 
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. Including tags
+2. Including option for user to tag their location for their posts
 
 ## Video Walkthrough
 
