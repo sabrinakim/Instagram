@@ -3,6 +3,8 @@ package com.example.instagram;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         buttonLogin = findViewById(R.id.buttonLogin);
+
+        //etUsername.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
 
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
