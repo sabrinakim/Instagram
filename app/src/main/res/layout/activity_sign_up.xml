@@ -4,48 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignUpActivity">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="20dp"
+        tools:layout_editor_absoluteX="1dp"
+        tools:layout_editor_absoluteY="1dp">
 
         <EditText
-            android:id="@+id/etUsername"
+            android:id="@+id/etUsernameCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="username"
-            android:inputType="textPersonName"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:hint="Username"
+            android:inputType="textPersonName" />
 
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etPasswordCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="password"
-            android:inputType="textPassword"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+            android:hint="Password"
+            android:inputType="textPersonName" />
 
-        <Button
-            android:id="@+id/buttonLogin"
+        <EditText
+            android:id="@+id/etEmailCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login" />
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName" />
 
         <Button
-            android:id="@+id/btnSignUp"
+            android:id="@+id/buttonCreate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up" />
+            android:text="Create Account" />
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

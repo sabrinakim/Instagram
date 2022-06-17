@@ -68,6 +68,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         ImageView ivProfilePic;
         TextView tvCreatedAt;
         ToggleButton tbLike;
+        TextView tvLikes;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -79,6 +80,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             tbLike = itemView.findViewById(R.id.tbLike);
+            tvLikes = itemView.findViewById(R.id.tvLikes);
 
             itemView.setOnClickListener(this);
         }
@@ -87,6 +89,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvUsername.setText(post.getUser().getUsername());
             tvDescription.setText(post.getDescription());
             tvCreatedAt.setText(post.getCreatedAt().toString());
+            tvLikes.setText(post.getLikes().toString());
 
             // image is saved in our database
             ParseFile image = post.getImage();
@@ -115,6 +118,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     if (isChecked) {
                         // update database
                         post.setLikes(post.getLikes().intValue() + 1);
+                        tvLikes.setText(post.getLikes().toString());
                         ParseUser u = ParseUser.getCurrentUser();
                         post.saveInBackground(new SaveCallback() { // saves in our database?
                             @Override
@@ -128,6 +132,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         });
                     } else {
                         post.setLikes(post.getLikes().intValue() - 1);
+                        tvLikes.setText(post.getLikes().toString());
                         post.saveInBackground(new SaveCallback() { // saves in our database?
                             @Override
                             public void done(ParseException e) {
