@@ -31,6 +31,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public static String TAG = "PostAdapter";
     Context context;
     List<Post> posts;
+    private String likedDescription;
+    private String caption;
 
     public PostAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -63,6 +65,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         // we will place the proper text and images into these views in the bind function
         TextView tvUsername;
+        TextView tvUsername2;
         TextView tvDescription;
         ImageView ivPostPicture;
         ImageView ivProfilePic;
@@ -81,15 +84,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             tbLike = itemView.findViewById(R.id.tbLike);
             tvLikes = itemView.findViewById(R.id.tvLikes);
+            tvUsername2 = itemView.findViewById(R.id.tvUsername2);
 
             itemView.setOnClickListener(this);
         }
 
         public void bind(Post post) {
             tvUsername.setText(post.getUser().getUsername());
+            tvUsername2.setText(post.getUser().getUsername());
             tvDescription.setText(post.getDescription());
             tvCreatedAt.setText(post.getCreatedAt().toString());
-            tvLikes.setText(post.getLikes().toString());
+
+            likedDescription = "Liked by " + post.getLikes().toString();
+            tvLikes.setText(likedDescription);
 
             // image is saved in our database
             ParseFile image = post.getImage();
@@ -112,13 +119,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 }
             });
 
+
+
             tbLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         // update database
                         post.setLikes(post.getLikes().intValue() + 1);
-                        tvLikes.setText(post.getLikes().toString());
+                        likedDescription = "Liked by " + post.getLikes().toString();
+                        tvLikes.setText(likedDescription);
                         ParseUser u = ParseUser.getCurrentUser();
                         post.saveInBackground(new SaveCallback() { // saves in our database?
                             @Override
@@ -132,7 +142,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                         });
                     } else {
                         post.setLikes(post.getLikes().intValue() - 1);
-                        tvLikes.setText(post.getLikes().toString());
+                        likedDescription = "Liked by " + post.getLikes().toString();
+                        tvLikes.setText(likedDescription);
                         post.saveInBackground(new SaveCallback() { // saves in our database?
                             @Override
                             public void done(ParseException e) {
@@ -146,7 +157,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     }
                 }
             });
-
 
         }
 

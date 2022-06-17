@@ -10,7 +10,7 @@
             android:id="@+id/tvUsername"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:text="TextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textStyle="bold"
@@ -18,12 +18,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ivProfilePic"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/ivProfilePic" />
 
         <ImageView
             android:id="@+id/ivPostPicture"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="400dp"
             android:layout_marginTop="20dp"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,14 +33,15 @@
 
         <TextView
             android:id="@+id/tvDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_width="300dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivPostPicture" />
+            app:layout_constraintStart_toEndOf="@+id/tvUsername2"
+            app:layout_constraintTop_toBottomOf="@+id/tvLikes" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ivProfilePic"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -51,34 +52,89 @@
 
         <TextView
             android:id="@+id/tvCreatedAt"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
-            app:layout_constraintEnd_toEndOf="@+id/tvDescription"
-            app:layout_constraintStart_toStartOf="@+id/tvDescription"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
         <ToggleButton
             android:id="@+id/tbLike"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/toggle_heart_selector"
             android:textOff=""
             android:textOn=""
-            app:layout_constraintStart_toStartOf="@+id/tvCreatedAt"
-            app:layout_constraintTop_toBottomOf="@+id/tvCreatedAt"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPostPicture"
             tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tvLikes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tbLike" />
+
+        <ToggleButton
+            android:id="@+id/tbComment"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/ufi_comment"
+            android:text="ToggleButton"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintBottom_toBottomOf="@+id/tbLike"
+            app:layout_constraintStart_toEndOf="@+id/tbLike"
+            app:layout_constraintTop_toTopOf="@+id/tbLike"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ToggleButton
+            android:id="@+id/tbSend"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/direct"
+            android:text="ToggleButton"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintBottom_toBottomOf="@+id/tbComment"
+            app:layout_constraintStart_toEndOf="@+id/tbComment"
+            app:layout_constraintTop_toTopOf="@+id/tbComment"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <ToggleButton
+            android:id="@+id/tbSave"
+            android:layout_width="17dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/ufi_save"
+            android:text="ToggleButton"
+            android:textOff=""
+            android:textOn=""
+            app:layout_constraintBottom_toBottomOf="@+id/tbSend"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tbSend"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:id="@+id/tvUsername2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/tbLike"
-            app:layout_constraintStart_toEndOf="@+id/tbLike"
-            app:layout_constraintTop_toTopOf="@+id/tbLike" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvLikes" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

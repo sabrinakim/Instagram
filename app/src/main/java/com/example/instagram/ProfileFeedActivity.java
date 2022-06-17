@@ -26,7 +26,6 @@ public class ProfileFeedActivity extends AppCompatActivity {
     public static String TAG = "ProfileFeedActivity";
     private ProfilePostAdapter adapter;
     private RecyclerView rvProfilePosts;
-    private ImageView ivProfileFeedPic;
     private List<Post> allPosts;
 
     @Override
@@ -46,11 +45,6 @@ public class ProfileFeedActivity extends AppCompatActivity {
 
         queryProfilePosts();
 
-        ivProfileFeedPic = findViewById(R.id.ivProfileFeedPic);
-        ParseFile image = ParseUser.getCurrentUser().getParseFile("profilePic");
-        if (image != null) { // image is optional, so its possible that it is null
-            Glide.with(this).load(image.getUrl()).into(ivProfileFeedPic);
-        }
     }
 
     private void queryProfilePosts() {
