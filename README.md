@@ -67,6 +67,9 @@ List an 3rd party libraries, icons, graphics, or other assets you used in your a
 
 Describe any challenges encountered while building the app.
 
+- working with the Parse database was challenging since I've never worked with a database before.
+- launching an implicit intent was also a bit challenging and confusing since this is also a new concept for me.
+
 ## License
 
     Copyright [yyyy] [name of copyright owner]
